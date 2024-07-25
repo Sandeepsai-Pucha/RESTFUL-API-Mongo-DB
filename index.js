@@ -1,17 +1,31 @@
-const express = require('express')
-const dbConnect = require('./config/db/dbConnect')
-const app = express()
+const express = require("express");
+const dbConnect = require("./config/db/dbConnect");
+const app = express();
+const PORT = process.env.PORT || 3000; // Make sure to define the PORT variable
 
+// Connect to the database
 dbConnect();
 
-const PORT = process.env.PORT || 3000
+// Middleware
+app.use(express.json());
 
-app.use(express.json())
+// Route handlers
+const userRoutes = require("./src/user/index");
+const driverRoutes = require("./src/driver/index");
+const rideRoutes = require("./src/ride/index");
+const locationRoutes = require("./src/location/index");
+const regionRoutes = require("./src/region/index");
+const vehicleRoutes = require("./src/vehicle/index");
 
-const routes = require('./routes/routes')
-app.use('/api', routes)
+// Define routes
+app.use("/api/users", userRoutes);
+app.use("/api/drivers", driverRoutes);
+app.use("/api/rides", rideRoutes);
+app.use("/api/locations", locationRoutes);
+app.use("/api/regions", regionRoutes);
+app.use("/api/vehicles", vehicleRoutes);
 
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
-
+  console.log(`Server running on port ${PORT}`);
+});
