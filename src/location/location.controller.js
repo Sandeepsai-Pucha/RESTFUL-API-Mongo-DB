@@ -47,3 +47,20 @@ exports.deleteLocation = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.sendLocation = async (req, res) => {
+  try {
+    let value=await locationService.sendLocation(req.body);
+    res.json({ address:value });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+exports.pickAndDrop = async (req, res) => {
+  try {
+    let value=await locationService.pickAndDrop(req.body);
+    res.json({ address:value });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
