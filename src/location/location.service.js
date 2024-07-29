@@ -91,6 +91,46 @@ exports.pickAndDrop = async (locationData) => {
 };
 
 
+exports.createRide = async (rideData) => {
+  try {
+    const { userId, pickLocation, dropLocation, rideTime} = rideData;
+
+    const getCoordinates = async (address) => {
+      const apiKey = "299250ace8954a778bdd2c92753d136c";
+      const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(address)}&key=${apiKey}`);
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        return {
+          latitude: data.results[0].geometry.lat,
+          longitude: data.results[0].geometry.lng,
+        };
+      } else {
+        throw new Error('Address not found');
+      }
+    };
+
+    const pickCoords = await getCoordinates(pickLocation);
+    const dropCoords = await getCoordinates(dropLocation);
+
+    const ride = new Ride({
+      user: userId, 
+      startLocation: pickLocation,
+      endLocation: dropLocation, 
+      rideDate: rideTime, 
+    });
+
+    const savedRide = await ride.save();
+
+    return {
+      message: 'Ride created successfully',
+      data: savedRide
+    };
+  } catch (error) {
+    console.log(error,"error");
+    return { error: error.message };
+  }
+};
+
 
 
 

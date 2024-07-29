@@ -5,11 +5,11 @@ exports.getUserById = async (id) => {
   try {
     const user = await User.findById(id)
       .populate({
-        path: "dfgfsg",
-        populate: {
-          path: "vehicle",
-          model: "Vehicle",
-        },
+        path: "rides",
+        // populate: {
+        //   path: "vehicle",
+        //   model: "Vehicle",
+        // },
       })
       .exec();
     return user;

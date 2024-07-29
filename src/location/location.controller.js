@@ -64,3 +64,12 @@ exports.pickAndDrop = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.createRide = async (req, res) => {
+  try {
+    let value=await locationService.createRide(req.body);
+    res.json({ address:value });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

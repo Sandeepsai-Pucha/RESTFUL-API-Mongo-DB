@@ -10,5 +10,6 @@ router.delete("/:id", locationController.deleteLocation);
 
 router.post("/location", locationController.sendLocation);
 router.post("/pick-and-drop", locationController.pickAndDrop);
+router.post("/create-ride", locationController.createRide);
 
 module.exports = router;

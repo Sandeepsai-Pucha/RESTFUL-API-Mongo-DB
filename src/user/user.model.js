@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.virtual("dfgfsg", {
+userSchema.virtual("rides", {
   ref: "Ride",
   localField: "_id", // The field in the User schema
   foreignField: "user", // The field in the Ride schema
